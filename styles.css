@@ -139,3 +139,15 @@ body{background:#fff9f2;color:var(--deep)}
 .work-links b{font:800 12px 'Manrope',sans-serif;color:#064f50}
 .work-links small{font-size:10px;line-height:1.6;color:#81918b;margin-top:7px}
 @media(max-width:650px){.more-work-heading{display:block}.more-work-heading p{margin-top:9px}.work-links{grid-template-columns:1fr}}
+
+
+/* Real graphic design portfolio images */
+.design-grid-real{grid-template-columns:repeat(4,minmax(0,1fr));align-items:start}
+.design-grid-real .design-card{padding:10px}
+.design-image-link{display:block;overflow:hidden;border-radius:13px;background:#f0eee8}
+.design-image{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:contain;transition:transform .35s ease}
+.design-image-link:hover .design-image{transform:scale(1.025)}
+.design-grid-real .design-card-copy{padding:13px 4px 4px}
+.design-grid-real .design-card-copy h3{margin-bottom:0}
+@media(max-width:900px){.design-grid-real{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.design-grid-real{grid-template-columns:1fr 1fr;gap:10px}.design-grid-real .design-card{padding:7px}.design-grid-real .design-card-copy{padding:10px 3px 3px}.design-grid-real .design-card-copy h3{font-size:13px}}
