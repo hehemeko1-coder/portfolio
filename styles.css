@@ -74,3 +74,54 @@ body{background:#fff9f2;color:var(--deep)}
 @media(max-width:900px){.design-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.design-card:last-child{grid-column:span 2}.skills-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.hero-stats{width:90%;grid-template-columns:1fr 1fr}.hero-stats div{padding:10px 12px}.hero-stats div:last-child{grid-column:span 2;border-top:1px solid #e8e3d8}.design-section{padding-top:75px;padding-bottom:75px}.design-grid{grid-template-columns:1fr}.design-card:last-child{grid-column:auto}.design-preview{height:245px}.skills-grid{grid-template-columns:1fr 1fr}.skill-card p{min-height:112px}}
 @media(max-width:390px){.skills-grid{grid-template-columns:1fr}.skill-card p{min-height:auto}.design-preview{height:225px}}
+
+
+/* Expanded web project gallery: artwork is generated with CSS, no screenshots required */
+.project-grid-expanded{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+.project-grid-expanded .project-card{min-width:0;display:flex;flex-direction:column}
+.project-grid-expanded .project-info{align-items:flex-start}
+.project-grid-expanded .project-info p{max-width:100%}
+.project-grid-expanded .project-art{height:220px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.project-grid-expanded .art-caption{position:absolute;left:15px;bottom:12px;font-size:8px;letter-spacing:1.5px;font-weight:800;opacity:.72}
+.project-links{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.project-note-inline{font-size:10px;color:#81918b}
+.project-art-animo{background:#e8f5f1}
+.animo-window{width:82%;height:76%;display:flex;background:#fff;border:1px solid #d9e8e1;border-radius:13px;overflow:hidden;box-shadow:0 15px 35px #174f501c}
+.animo-sidebar{width:19%;background:#f1f7f3;display:flex;align-items:center;flex-direction:column;gap:15px;padding:12px 6px}
+.animo-sidebar b{display:grid;place-items:center;background:#078e8b;color:white;width:25px;height:25px;border-radius:8px;font:800 16px 'Manrope'}
+.animo-sidebar i{width:13px;height:13px;border-radius:50%;background:#d2e4dc}
+.animo-chat{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:17px;padding:10px}
+.animo-greeting{font:800 clamp(13px,1.5vw,20px) 'Manrope';color:#174f50}
+.animo-message{font-size:9px;color:#92a49a}
+.animo-input{width:88%;border:1px solid #dce9e3;border-radius:9px;padding:9px;font-size:8px;color:#91a39a}
+.animo-input b{float:right;background:#078e8b;color:white;border-radius:5px;padding:0 5px}
+.project-art-afterhours{background:#171b20}
+.afterhours-panel{width:78%;height:72%;border:1px solid #343a42;background:#20262d;border-radius:12px;padding:14px;color:#f4f1ea;box-shadow:0 14px 30px #0004}
+.afterhours-panel>span{font:800 15px 'Manrope';letter-spacing:-.5px}
+.afterhours-layout{display:flex;gap:12px;margin-top:19px;height:70px}
+.afterhours-layout>i{width:30%;border-radius:7px;background:linear-gradient(145deg,#87482d,#c78b62)}
+.afterhours-layout div{flex:1;display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.afterhours-layout b{height:7px;border-radius:5px;background:#4a545e}.afterhours-layout b:nth-child(2){width:75%}.afterhours-layout b:nth-child(3){width:55%}
+.afterhours-panel small{display:block;margin-top:12px;font-size:7px;letter-spacing:1.5px;color:#a9b0b5}
+.project-art-seri{background:#e85102;color:white;flex-direction:column;align-items:flex-start;padding:25px}
+.seri-art-word{font:900 clamp(42px,5vw,66px)/.9 'Manrope';letter-spacing:-4px}
+.seri-art-word span{color:#ffd36c}.seri-art-line{width:70%;height:5px;background:#ffd36c;margin:13px 0}
+.seri-art-sub{font:800 12px/1.2 'Manrope';letter-spacing:2px}.project-art-seri .art-caption{color:white}
+.project-art-portopedia{background:#151514;color:#f7f4ec;flex-direction:column;align-items:flex-start;padding:25px}
+.portopedia-brand{font:800 23px 'Manrope';letter-spacing:-1px}.portopedia-brand span{color:#df9e74}
+.portopedia-cards{display:flex;gap:8px;margin-top:23px;width:100%}
+.portopedia-cards i{height:72px;flex:1;border-radius:7px;background:linear-gradient(145deg,#d9b8a3,#6d8d82)}
+.portopedia-cards i:nth-child(2){background:linear-gradient(145deg,#d9d2b8,#b66f51)}
+.portopedia-cards i:nth-child(3){background:linear-gradient(145deg,#8ba5a0,#273d3b)}
+.project-art-portopedia .art-caption{color:#d8c9bb}
+.project-art-mehari{background:#e7dfd0;color:#24231f;justify-content:flex-start;padding:25px}
+.mehari-art-title{font:500 clamp(27px,3vw,39px)/.92 Georgia,serif;letter-spacing:1px;z-index:1}
+.mehari-art-shape{position:absolute;width:125px;height:155px;right:28px;top:24px;background:linear-gradient(140deg,#9e6549,#3b4940);border-radius:48% 12% 45% 8%;transform:rotate(13deg);opacity:.85}
+.project-art-mehari .art-caption{color:#24231f}
+.project-art-mirai{background:#e8e5f4;color:#342b55}
+.mirai-mark{font:900 72px 'Manrope';letter-spacing:-8px}.mirai-mark span{color:#9b80d2}
+.mirai-chat-card{position:absolute;width:36%;height:62%;right:13%;top:20%;border-radius:10px;background:#fff;box-shadow:0 12px 25px #342b5522;padding:12px}
+.mirai-chat-card i{display:block;width:22px;height:22px;border-radius:50%;background:#b5a0e1;margin-bottom:10px}
+.mirai-chat-card b{display:block;height:6px;border-radius:4px;background:#e4dfed;margin:6px 0}.mirai-chat-card b:nth-child(3){width:75%}.mirai-chat-card b:nth-child(4){width:55%}
+@media(max-width:900px){.project-grid-expanded{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.project-grid-expanded{grid-template-columns:1fr}.project-grid-expanded .project-art{height:210px}.project-grid-expanded .project-info{gap:12px}}
