@@ -125,3 +125,17 @@ body{background:#fff9f2;color:var(--deep)}
 .mirai-chat-card b{display:block;height:6px;border-radius:4px;background:#e4dfed;margin:6px 0}.mirai-chat-card b:nth-child(3){width:75%}.mirai-chat-card b:nth-child(4){width:55%}
 @media(max-width:900px){.project-grid-expanded{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.project-grid-expanded{grid-template-columns:1fr}.project-grid-expanded .project-art{height:210px}.project-grid-expanded .project-info{gap:12px}}
+
+
+/* Additional project repository links */
+.more-work-expanded{display:block;padding:25px 0 8px}
+.more-work-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+.more-work-heading>span{font-size:9px;letter-spacing:1.4px;font-weight:800;color:#8b9b95;white-space:nowrap}
+.more-work-heading p{max-width:470px;font-size:11px;font-weight:500;line-height:1.7;color:#84918d;margin:0}
+.work-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+.work-links a{display:block;padding:16px 17px;border:1px solid #e7e8df;border-radius:13px;background:#fffaf4;transition:transform .2s,border-color .2s}
+.work-links a:hover{transform:translateY(-3px);border-color:#078e8b}
+.work-links b,.work-links small{display:block}
+.work-links b{font:800 12px 'Manrope',sans-serif;color:#064f50}
+.work-links small{font-size:10px;line-height:1.6;color:#81918b;margin-top:7px}
+@media(max-width:650px){.more-work-heading{display:block}.more-work-heading p{margin-top:9px}.work-links{grid-template-columns:1fr}}
