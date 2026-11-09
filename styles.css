@@ -1537,3 +1537,60 @@ a { text-underline-offset: 4px; }
 
 /* Keep the hero full-bleed while the content sections use the editorial grid */
 .hero.section-wrap { width: 100%; max-width: none; }
+
+
+/* FINAL CLEANUP — remove the remaining decorative 3D / sphere / backdrop artwork */
+.hero {
+  background: linear-gradient(115deg, #061522 0%, #0b2438 58%, #081c2c 100%) !important;
+  background-image: none !important;
+  overflow: hidden;
+}
+.hero::before,
+.hero::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  opacity: 0 !important;
+}
+.hero-art-label {
+  display: none !important;
+}
+.hero h1 {
+  text-shadow: none !important;
+}
+.hero .button-primary,
+.hero .button-primary:hover {
+  box-shadow: none !important;
+}
+.disciplines-section::before,
+.disciplines-section::after {
+  content: none !important;
+  display: none !important;
+}
+.contact-card::before,
+.contact-card::after {
+  content: none !important;
+  display: none !important;
+}
+.contact-card {
+  background: linear-gradient(120deg, #102d45, #0b2438 72%, #0d3548) !important;
+}
+.project-card,
+.design-card,
+.skill-card,
+.discipline-control,
+.case-study-shell {
+  box-shadow: none !important;
+  transform: none !important;
+}
+.project-card:hover,
+.design-card:hover,
+.skill-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+.design-image,
+.design-image-link:hover .design-image {
+  transform: none !important;
+}
