@@ -324,7 +324,46 @@
 
     <section class="contact-section section-wrap" id="contact"><div class="contact-card"><div class="section-kicker">07 / SAY HELLO</div><h2>Have an idea?<br><span>Let’s talk about it.</span></h2><p>Have a design, website, or digital project in mind? Let’s discuss the goal, scope, and right approach.</p><a class="button button-primary" href="mailto:hehemeko1@gmail.com">Email<span>↗</span></a><div class="social-links"><a href="https://github.com/hehemeko1-coder" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.instagram.com/nsi__7/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://t.me/dj_nsi" target="_blank" rel="noreferrer">Telegram ↗</a></div></div></section>
   </main>
-  <button class="back-to-top" type="button" aria-label="Back to top">↑<span>TOP</span></button>
+
+  <section class="nsi-player" id="nsi-player" aria-label="NSI music player">
+    <audio id="nsi-audio" preload="metadata"></audio>
+    <div class="nsi-player-top">
+      <span class="nsi-player-mark">NSI<span> / SOUND</span></span>
+      <label class="nsi-track-select-wrap" for="nsi-track-select">
+        <span class="sr-only">Choose a track</span>
+        <select id="nsi-track-select" aria-label="Choose a track">
+          <option value="0">Different Heaven - My Heart</option>
+          <option value="1">FEAR - NSI</option>
+          <option value="2">SILENT - NSI</option>
+          <option value="3">lame - NSI</option>
+          <option value="4">loop - NSI</option>
+          <option value="5">stop - NSI</option>
+          <option value="6">yallD - NSI</option>
+        </select>
+      </label>
+    </div>
+    <div class="nsi-player-main">
+      <div class="nsi-player-controls">
+        <button class="nsi-control" id="nsi-prev" type="button" aria-label="Previous track" title="Previous track">|‹</button>
+        <button class="nsi-play" id="nsi-play" type="button" aria-label="Play" title="Play">▶</button>
+        <button class="nsi-control" id="nsi-next" type="button" aria-label="Next track" title="Next track">›|</button>
+      </div>
+      <div class="nsi-track-meta">
+        <div class="nsi-track-title" id="nsi-track-title">Different Heaven - My Heart</div>
+        <div class="nsi-progress-row">
+          <span id="nsi-current-time">0:00</span>
+          <input id="nsi-progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Track progress">
+          <span id="nsi-duration">0:00</span>
+        </div>
+      </div>
+      <div class="nsi-volume-wrap">
+        <span aria-hidden="true">VOL</span>
+        <input id="nsi-volume" type="range" min="0" max="1" value="0.7" step="0.01" aria-label="Volume">
+      </div>
+    </div>
+    <p class="nsi-player-hint" id="nsi-player-hint">SELECT A TRACK · PRESS PLAY TO LISTEN</p>
+  </section>
+\n  <button class="back-to-top" type="button" aria-label="Back to top">↑<span>TOP</span></button>
   <footer class="site-footer"><a class="brand" href="#home"><img class="brand-logo" src="assets/logo.png" alt="" height="54"><span class="y">yahwehnsi<span class="brand-dot">.</span></span></a><p>Built with growing experience in Addis Ababa, Ethiopia.</p><a href="#home" class="back-top">Back to top ↑</a><small>© <span id="year"></span> Yahwehnsi Tibebu</small></footer>
   <script src="script.js"></script>
 </body>
