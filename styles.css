@@ -671,7 +671,7 @@ button { font: inherit; }
 .project-art-portopedia { background: linear-gradient(135deg,#1c2828,#354d49 60%,#758c7d) !important; }
 .project-art-portopedia::before { content: "PORTOPEDIA"; }
 .project-art-mehari { background: linear-gradient(135deg,#d7d1c3,#b6b3a5 65%,#8e9b91) !important; }
-.project-art-mehari::before { content: "MEHARI TESHOMЕ"; color: #172124 !important; }
+.project-art-mehari::before { content: "MEHARI TESHOME"; color: #172124 !important; }
 .project-art-mirai { background: linear-gradient(135deg,#d9e2df,#a9c2bb 60%,#628c84) !important; }
 .project-art-mirai::before { content: "MIRAI SOCIAL"; color: #172124 !important; }
 .project-grid-expanded .project-art .art-caption {
