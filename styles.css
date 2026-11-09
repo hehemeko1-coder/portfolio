@@ -73,3 +73,154 @@ a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inhe
 .button-outline:focus-visible,.nav a:focus-visible,.text-link:focus-visible,
 .round-link:focus-visible,.subtle-link:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
 a:focus-visible,button:focus-visible,input:focus-visible{outline-color:var(--pink);outline-offset:3px}
+
+
+/* SPIDER-VERSE-INSPIRED ART DIRECTION — bold comic print, not 3D */
+:root{
+  --bg:#080b16;--bg2:#0e1426;--surface:#151d35;--surface2:#202b49;
+  --line:#273653;--line2:#496080;--text:#f7f8ff;--muted:#b6c3d9;--dim:#7d8ca8;
+  --yellow:#ff3158;--yellow2:#ff6d82;--pink:#ed35c5;
+  --sv-cyan:#00e5ff;--sv-blue:#315bff;--sv-purple:#7c3cff;
+}
+::selection{background:var(--sv-cyan);color:#080b16}
+body{
+  background-color:var(--bg);
+  background-image:radial-gradient(rgba(0,229,255,.10) .75px,transparent .75px);
+  background-size:7px 7px;
+}
+.site-header{
+  background:rgba(8,11,22,.94);
+  border-bottom:1px solid rgba(0,229,255,.25);
+  box-shadow:0 4px 0 rgba(255,49,88,.08);
+}
+.brand-dot,.nav-contact span{color:var(--sv-cyan)}
+.nav>a:hover,.nav>a.is-current{color:var(--sv-cyan)}
+.hero.section-wrap{
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    linear-gradient(112deg,rgba(8,11,22,.98) 0%,rgba(10,17,39,.94) 55%,rgba(30,16,54,.92) 100%);
+  border-bottom:1px solid rgba(0,229,255,.35);
+}
+.hero.section-wrap:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  opacity:.8;
+  background:
+    radial-gradient(circle at 83% 24%,rgba(0,229,255,.24),transparent 22%),
+    radial-gradient(circle at 92% 75%,rgba(237,53,197,.20),transparent 24%),
+    radial-gradient(rgba(255,255,255,.19) .8px,transparent .8px);
+  background-size:auto,auto,9px 9px;
+  mask-image:linear-gradient(90deg,transparent 8%,#000 65%);
+}
+.hero.section-wrap:after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:clamp(150px,25vw,340px);
+  height:140%;
+  right:8%;
+  top:-18%;
+  transform:rotate(19deg);
+  border-left:2px solid rgba(0,229,255,.45);
+  border-right:2px solid rgba(255,49,88,.55);
+  background:linear-gradient(90deg,transparent,rgba(49,91,255,.10),rgba(237,53,197,.08),transparent);
+  pointer-events:none;
+}
+.hero-copy{position:relative;z-index:1}
+.eyebrow,.section-kicker,.discipline-count,.discipline-role-number,
+.discipline-detail-label,.case-study-topline,.design-type{color:var(--sv-cyan)}
+.hero h1{
+  text-shadow:4px 3px 0 rgba(255,49,88,.72),-3px -2px 0 rgba(0,229,255,.45);
+}
+.hero-name{
+  color:var(--sv-cyan);
+  text-shadow:3px 2px 0 rgba(237,53,197,.55);
+}
+.hero-lead{max-width:700px}
+.button-primary{
+  background:var(--yellow);border-color:var(--yellow);color:#080b16;
+  box-shadow:4px 4px 0 var(--sv-cyan);
+}
+.button-primary:hover{background:var(--yellow2);border-color:var(--yellow2);transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--sv-cyan)}
+.button-outline:hover{border-color:var(--sv-cyan);color:var(--sv-cyan)}
+.scroll-cue span{background:var(--sv-cyan)}
+.hero-stats{border-color:rgba(0,229,255,.24)}
+.hero-stats>div{border-color:rgba(0,229,255,.18)}
+.intro-strip{
+  background:#111a31;
+  border-color:rgba(237,53,197,.25);
+}
+.intro-strip p{color:#d3d8ee}
+.about-grid h2 span,.section-heading h2 span,.section-heading>div h2 span,
+.case-studies-heading h2 span,.services-inner h2 span,.contact-card h2 span{color:var(--sv-cyan)}
+.disciplines-section,.case-studies-section,.services-section{
+  background:linear-gradient(120deg,#0e1426,#11152c 60%,#17132d);
+  border-color:rgba(0,229,255,.18);
+}
+.discipline-control,.discipline-stage,.case-study-shell{
+  background:rgba(7,11,24,.88);border-color:#2b3d60;
+}
+.discipline-tab.is-active{border-left-color:var(--sv-cyan)}
+.discipline-tab:hover,.discipline-tab.is-active{box-shadow:3px 3px 0 rgba(255,49,88,.28)}
+.discipline-role:hover,.discipline-role.is-selected{border-color:var(--sv-cyan)}
+.discipline-detail{border-left-color:var(--sv-cyan)}
+.project-card,.design-card,.skill-card{background:#0d1428;border-color:#263858}
+.project-card:hover,.design-card:hover{border-color:var(--sv-cyan)}
+.project-art{
+  border-color:#385078;
+  background-color:#101e3e;
+  background-image:radial-gradient(rgba(0,229,255,.14) .8px,transparent .8px);
+  background-size:8px 8px;
+}
+.project-art:before{
+  background:linear-gradient(135deg,rgba(0,229,255,.12),transparent 48%,rgba(237,53,197,.13));
+}
+.animo-window{box-shadow:6px 6px 0 rgba(0,229,255,.24),-4px -4px 0 rgba(255,49,88,.22)}
+.project-art-afterhours .afterhours-panel{box-shadow:5px 5px 0 rgba(237,53,197,.24)}
+.project-art-seri{background-color:#b72b45}
+.project-art-portopedia{background-color:#102d58}
+.project-art-mehari{box-shadow:inset -8px -8px 0 rgba(255,49,88,.16)}
+.project-art-mirai{background-color:#0b3347}
+.project-info h3{letter-spacing:-.055em}
+.round-link{border-color:#456080;color:var(--sv-cyan)}
+.round-link:hover{background:var(--sv-cyan);color:#080b16}
+.subtle-link,.text-link,.case-study-footer a{color:var(--sv-cyan)}
+.work-links a:hover{border-color:var(--sv-cyan)}
+.case-study-tab.is-active{border-color:var(--sv-cyan)}
+.design-section{
+  background:
+    radial-gradient(rgba(0,229,255,.12) .8px,transparent .8px),
+    linear-gradient(125deg,#09162b,#11132c 58%,#24102d);
+  background-size:9px 9px,auto;
+  border-color:rgba(237,53,197,.3);
+}
+.design-image-link{background:#101e3e}
+.skill-icon{color:var(--sv-cyan)}
+.skill-level{background:#1b2c4d}
+.skill-level span{background:linear-gradient(90deg,var(--yellow),var(--sv-cyan))}
+.service-list>div>span:first-child,.service-arrow{color:var(--sv-cyan)}
+.contact-card{
+  background:linear-gradient(120deg,#17213b,#211733);
+  border-color:rgba(0,229,255,.42);
+  box-shadow:7px 7px 0 rgba(255,49,88,.16);
+}
+.social-links a:hover,.back-top:hover{color:var(--sv-cyan)}
+.site-footer{background:#070a13;border-color:rgba(0,229,255,.2)}
+.back-to-top{background:#111d38;color:var(--sv-cyan);border-color:#456080}
+a:focus-visible,button:focus-visible,input:focus-visible{outline-color:var(--sv-cyan)}
+.project-status.progress i{background:var(--pink)}
+@media(max-width:760px){
+  .hero.section-wrap:after{right:-12%;opacity:.55}
+  .hero.section-wrap:before{mask-image:linear-gradient(90deg,transparent 0%,#000 90%)}
+}
+@media(prefers-reduced-motion:no-preference){
+  .project-card,.design-card,.discipline-role,.button{transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
+  .project-card:hover,.design-card:hover{transform:translateY(-3px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .project-card:hover,.design-card:hover,.button-primary:hover{transform:none}
+}
