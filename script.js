@@ -269,36 +269,104 @@ const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
 
-// Pointer-driven 3D tilt: restrained depth on desktop, no effect on touch or reduced-motion devices.
+
+
+// FULL-SITE 3D INTERACTION SYSTEM
 (() => {
+  const root = document.documentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (reduceMotion || !finePointer) return;
-  const targets = document.querySelectorAll('.project-card, .design-card, .skill-card, .contact-card');
-  targets.forEach(card => {
+  const revealTargets = document.querySelectorAll(
+    '.section-heading, .about-grid, .discipline-explorer, .project-card, .case-study-shell, .design-card, .skill-card, .services-inner, .contact-card, .hero-stats, .intro-strip'
+  );
+  revealTargets.forEach((element, index) => {
+    element.classList.add('reveal-3d');
+    if (element.matches('.about-grid')) element.classList.add('reveal-left');
+    else if (element.matches('.case-study-shell, .contact-card')) element.classList.add('reveal-scale');
+    else if (index % 5 === 2) element.classList.add('reveal-right');
+    element.style.setProperty('--reveal-delay', (element.matches('.project-card,.design-card,.skill-card') ? (index % 6) * 75 : 0) + 'ms');
+  });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -45px 0px' });
+    revealTargets.forEach(element => observer.observe(element));
+  } else {
+    revealTargets.forEach(element => element.classList.add('is-visible'));
+  }
+
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const navLinks = [...document.querySelectorAll('.nav a[href^="#"]')];
+  if ('IntersectionObserver' in window && sections.length) {
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => {
+          const active = link.getAttribute('href') === '#' + entry.target.id;
+          link.classList.toggle('is-current', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    sections.forEach(section => navObserver.observe(section));
+  }
+
+  if (!finePointer || reduceMotion) return;
+  let pointerFrame = 0;
+  window.addEventListener('pointermove', event => {
+    if (pointerFrame) cancelAnimationFrame(pointerFrame);
+    pointerFrame = requestAnimationFrame(() => {
+      root.style.setProperty('--pointer-x', event.clientX + 'px');
+      root.style.setProperty('--pointer-y', event.clientY + 'px');
+    });
+  }, { passive: true });
+
+  const tiltTargets = document.querySelectorAll('.project-card,.design-card,.skill-card,.contact-card');
+  tiltTargets.forEach(card => {
     card.addEventListener('pointermove', event => {
       const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = (event.clientY - rect.top) / rect.height;
-      const rotateY = (x - .5) * 8;
-      const rotateX = (.5 - y) * 7;
-      card.style.transform = 'perspective(1100px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-3px)';
-      card.style.boxShadow = '0 32px 65px rgba(0,0,0,.24), 0 0 0 1px rgba(85,191,194,.18)';
+      const px = (event.clientX - rect.left) / rect.width;
+      const py = (event.clientY - rect.top) / rect.height;
+      const rx = (0.5 - py) * (card.classList.contains('contact-card') ? 3 : 9);
+      const ry = (px - 0.5) * (card.classList.contains('contact-card') ? 3 : 10);
+      card.style.setProperty('--card-x', (px * 100) + '%');
+      card.style.setProperty('--card-y', (py * 100) + '%');
+      card.style.transform = 'perspective(1200px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translate3d(0,-5px,18px)';
     });
     card.addEventListener('pointerleave', () => {
       card.style.transform = '';
-      card.style.boxShadow = '';
+      card.style.removeProperty('--card-x');
+      card.style.removeProperty('--card-y');
     });
   });
+
   const hero = document.querySelector('.hero');
   const heroCopy = document.querySelector('.hero-copy');
   if (hero && heroCopy) {
     hero.addEventListener('pointermove', event => {
       const rect = hero.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - .5;
-      const y = (event.clientY - rect.top) / rect.height - .5;
-      heroCopy.style.transform = 'translate3d(' + (x * 10).toFixed(1) + 'px,' + (y * 8).toFixed(1) + 'px,65px)';
+      const px = (event.clientX - rect.left) / rect.width - 0.5;
+      const py = (event.clientY - rect.top) / rect.height - 0.5;
+      heroCopy.style.transform = 'translate3d(' + (px * 18).toFixed(1) + 'px,' + (py * 14).toFixed(1) + 'px,65px) rotateY(' + (px * 2.5).toFixed(2) + 'deg) rotateX(' + (-py * 2).toFixed(2) + 'deg)';
     });
     hero.addEventListener('pointerleave', () => { heroCopy.style.transform = ''; });
   }
+
+  // Small magnetic response for primary calls to action.
+  document.querySelectorAll('.button-primary,.nav-contact').forEach(button => {
+    button.addEventListener('pointermove', event => {
+      const rect = button.getBoundingClientRect();
+      const dx = (event.clientX - rect.left - rect.width / 2) * 0.08;
+      const dy = (event.clientY - rect.top - rect.height / 2) * 0.12;
+      button.style.translate = dx.toFixed(1) + 'px ' + dy.toFixed(1) + 'px';
+    });
+    button.addEventListener('pointerleave', () => { button.style.translate = ''; });
+  });
 })();
