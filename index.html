@@ -64,25 +64,40 @@
           <div><h2>One connected field.<br><span>Many ways to create.</span></h2></div>
           <p>Explore the disciplines that shape the kind of digital work I’m interested in. Select a field to see its roles and how each connects to the wider process.</p>
         </div>
-        <div class="discipline-explorer">
-          <div class="discipline-tabs" role="tablist" aria-label="Discipline categories">
-            <button class="discipline-tab is-active" type="button" role="tab" aria-selected="true" data-discipline="experience">Experience & design <span>6</span></button>
-            <button class="discipline-tab" type="button" role="tab" aria-selected="false" data-discipline="development">Development & CMS <span>5</span></button>
-            <button class="discipline-tab" type="button" role="tab" aria-selected="false" data-discipline="content">Content & growth <span>4</span></button>
-            <button class="discipline-tab" type="button" role="tab" aria-selected="false" data-discipline="operations">Engineering & operations <span>7</span></button>
-          </div>
-          <div class="discipline-panel" role="tabpanel" aria-live="polite">
-            <div class="discipline-panel-top"><span class="discipline-overline" id="discipline-overline">01 — EXPERIENCE & DESIGN</span><span class="discipline-count" id="discipline-count">06 ROLES</span></div>
-            <h3 id="discipline-title">Understand people. Shape the experience.</h3>
-            <p id="discipline-description">Research, structure, visual systems, and interaction design come together to make products useful, understandable, and engaging.</p>
-            <div class="discipline-role-grid" id="discipline-role-grid">
-              <div class="discipline-role"><span>01</span><b>UX Researcher</b><small>Studies user needs, behavior, and problems.</small></div>
-              <div class="discipline-role"><span>02</span><b>UX Designer</b><small>Shapes useful, accessible end-to-end experiences.</small></div>
-              <div class="discipline-role"><span>03</span><b>UI Designer</b><small>Designs visual interface systems and components.</small></div>
-              <div class="discipline-role"><span>04</span><b>Interaction Designer</b><small>Defines how interfaces respond to people.</small></div>
-              <div class="discipline-role"><span>05</span><b>Web Designer</b><small>Creates the structure and visual language of websites.</small></div>
-              <div class="discipline-role"><span>06</span><b>Graphic Designer / Illustrator</b><small>Communicates ideas through visual composition and imagery.</small></div>
+        <div class="discipline-explorer discipline-explorer-premium">
+          <div class="discipline-control">
+            <div class="discipline-control-heading">
+              <span class="discipline-overline">EXPLORE THE DIGITAL WORKFLOW</span>
+              <span class="discipline-total"><strong>22</strong> DISCIPLINES</span>
             </div>
+            <div class="discipline-tabs" role="tablist" aria-label="Discipline categories">
+              <button class="discipline-tab is-active" type="button" role="tab" aria-selected="true" data-discipline="experience"><span class="discipline-tab-index">01</span><span class="discipline-tab-name">Experience & design</span><span class="discipline-tab-count">06</span><span class="discipline-tab-arrow">↗</span></button>
+              <button class="discipline-tab" type="button" role="tab" aria-selected="false" data-discipline="development"><span class="discipline-tab-index">02</span><span class="discipline-tab-name">Development & CMS</span><span class="discipline-tab-count">05</span><span class="discipline-tab-arrow">↗</span></button>
+              <button class="discipline-tab" type="button" role="tab" aria-selected="false" data-discipline="content"><span class="discipline-tab-index">03</span><span class="discipline-tab-name">Content & growth</span><span class="discipline-tab-count">04</span><span class="discipline-tab-arrow">↗</span></button>
+              <button class="discipline-tab" type="button" role="tab" aria-selected="false" data-discipline="operations"><span class="discipline-tab-index">04</span><span class="discipline-tab-name">Engineering & operations</span><span class="discipline-tab-count">07</span><span class="discipline-tab-arrow">↗</span></button>
+            </div>
+            <div class="discipline-control-foot"><span class="discipline-live-dot"></span> SELECT A FIELD TO EXPLORE</div>
+          </div>
+          <div class="discipline-stage">
+            <div class="discipline-stage-top">
+              <div><span class="discipline-overline" id="discipline-overline">01 — EXPERIENCE & DESIGN</span><h3 id="discipline-title">Understand people. Shape the experience.</h3></div>
+              <span class="discipline-count" id="discipline-count">06 / 22</span>
+            </div>
+            <p class="discipline-description" id="discipline-description">Research, structure, visual systems, and interaction design come together to make products useful, understandable, and engaging.</p>
+            <div class="discipline-tools">
+              <label class="discipline-search"><span>⌕</span><input id="discipline-search" type="search" placeholder="Find a discipline..." autocomplete="off" aria-label="Search disciplines"><kbd>/</kbd></label>
+              <span class="discipline-hint">SELECT A ROLE TO VIEW ITS FOCUS</span>
+            </div>
+            <div class="discipline-role-grid" id="discipline-role-grid" aria-live="polite">
+              <button class="discipline-role is-selected" type="button" aria-pressed="true"><span class="discipline-role-number">01</span><span class="discipline-role-copy"><b>UX Researcher</b><small>Studies user needs, behavior, and problems.</small></span><span class="discipline-role-arrow">↗</span></button>
+              <button class="discipline-role" type="button" aria-pressed="false"><span class="discipline-role-number">02</span><span class="discipline-role-copy"><b>UX Designer</b><small>Shapes useful, accessible end-to-end experiences.</small></span><span class="discipline-role-arrow">↗</span></button>
+              <button class="discipline-role" type="button" aria-pressed="false"><span class="discipline-role-number">03</span><span class="discipline-role-copy"><b>UI Designer</b><small>Designs visual interface systems and components.</small></span><span class="discipline-role-arrow">↗</span></button>
+              <button class="discipline-role" type="button" aria-pressed="false"><span class="discipline-role-number">04</span><span class="discipline-role-copy"><b>Interaction Designer</b><small>Defines how interfaces respond to people.</small></span><span class="discipline-role-arrow">↗</span></button>
+              <button class="discipline-role" type="button" aria-pressed="false"><span class="discipline-role-number">05</span><span class="discipline-role-copy"><b>Web Designer</b><small>Creates the structure and visual language of websites.</small></span><span class="discipline-role-arrow">↗</span></button>
+              <button class="discipline-role" type="button" aria-pressed="false"><span class="discipline-role-number">06</span><span class="discipline-role-copy"><b>Graphic Designer / Illustrator</b><small>Communicates ideas through visual composition and imagery.</small></span><span class="discipline-role-arrow">↗</span></button>
+            </div>
+            <div class="discipline-detail" id="discipline-detail" aria-live="polite"><span class="discipline-detail-label">ROLE FOCUS</span><strong id="discipline-detail-title">UX Researcher</strong><p id="discipline-detail-description">Studies user needs, behavior, and problems.</p><span class="discipline-detail-index" id="discipline-detail-index">01 / 06</span></div>
+            <div class="discipline-stage-footer"><span>DESIGN <i>→</i> BUILD <i>→</i> GROW <i>→</i> OPERATE</span><span id="discipline-results">SHOWING 06 OF 22</span></div>
           </div>
         </div>
         <p class="discipline-note">These are related but distinct professions. A single project may involve several of them, usually across a team.</p>
