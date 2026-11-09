@@ -226,8 +226,18 @@ function updateScrollUI() {
   if (header) header.classList.toggle('is-scrolled', window.scrollY > 12);
   if (topButton) topButton.classList.toggle('is-visible', window.scrollY > 500);
 }
-window.addEventListener('scroll', updateScrollUI, { passive: true });
-window.addEventListener('resize', updateScrollUI);
+// Coalesce scroll work to at most one visual update per animation frame.
+let scrollUpdateQueued = false;
+function scheduleScrollUIUpdate() {
+  if (scrollUpdateQueued) return;
+  scrollUpdateQueued = true;
+  window.requestAnimationFrame(() => {
+    scrollUpdateQueued = false;
+    updateScrollUI();
+  });
+}
+window.addEventListener('scroll', scheduleScrollUIUpdate, { passive: true });
+window.addEventListener('resize', scheduleScrollUIUpdate, { passive: true });
 updateScrollUI();
 topButton?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
