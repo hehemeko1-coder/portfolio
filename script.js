@@ -144,6 +144,78 @@ document.addEventListener('keydown', event => {
 });
 renderDiscipline('experience');
 
+
+const caseStudies = {
+  animo: {
+    category:'AI PRODUCT · FULL-STACK BUILD', number:'CASE 01 / 03',
+    title:'Ânimo AI — building a useful assistant, not just a chat box.',
+    summary:'The project grew from a simple conversational interface into a broader AI application. The challenge was to connect model access, useful tools, documents, image understanding, and memory into one coherent product experience.',
+    problem:'A chat interface alone is not a complete assistant. It needs context, useful capabilities, and a dependable way to preserve information between sessions.',
+    build:'An application with configurable AI providers, web search, document and image input, and persistent memory backed by PostgreSQL.',
+    focus:'Connecting the user experience to provider configuration, server-side features, and persistent data rather than treating each capability as an isolated demo.',
+    next:'How should memory be evaluated? How can retrieval be made transparent? What test suite would protect tool use, provider failures, and long conversations?',
+    stack:'AI PROVIDERS · NODE.JS · POSTGRESQL · WEB TOOLS',
+    link:'https://github.com/hehemeko1-coder/Animo', label:'EXPLORE SOURCE ↗'
+  },
+  afterhours: {
+    category:'SOCIAL PRODUCT · DATA & MESSAGING', number:'CASE 02 / 03',
+    title:'Afterhours — turning social interactions into persistent product flows.',
+    summary:'Afterhours explores the foundations of a private social space: user accounts, friend relationships, direct conversations, and group communication.',
+    problem:'Social features are connected. A friend relationship affects who can communicate; conversations need clear membership and persistence; the interface must keep these states understandable.',
+    build:'A social application with account flows, friend requests and accepted friendships, private messaging, group chat, and a migration from JSON-based storage to Neon/PostgreSQL.',
+    focus:'Thinking in connected entities and durable records, and keeping relationships, membership, and messages consistent as the product grows.',
+    next:'How should permissions be enforced at every request boundary? What delivery guarantees are needed for messages? How should unread state, moderation, and abuse reporting work?',
+    stack:'SOCIAL GRAPH · PRIVATE MESSAGING · GROUPS · POSTGRESQL',
+    link:'https://afterhours-vcsd.onrender.com', label:'OPEN LIVE PROJECT ↗'
+  },
+  seri: {
+    category:'WEB EXPERIENCE · BRAND & CONTENT', number:'CASE 03 / 03',
+    title:'SERI Skill Center — modernizing a website without losing its identity.',
+    summary:'The redesign focused on making the site feel more contemporary while retaining the organization’s existing brand identity, logo, and supplied content.',
+    problem:'A redesign can easily become a visual exercise that erases the client’s identity or invents content. The challenge was to improve the experience without changing what makes the organization recognizable.',
+    build:'A refreshed website direction with an orange-led visual system, more deliberate page hierarchy, responsive layouts, and attention to the logo and favicon across the site.',
+    focus:'Balancing visual modernization with content fidelity: preserve source wording, maintain recognizable brand elements, and improve consistency between page UI and browser identity.',
+    next:'How can course discovery be tested with real visitors? Which pages drive enquiries? How should accessibility, performance, and content maintenance be measured after launch?',
+    stack:'ART DIRECTION · RESPONSIVE UI · CONTENT FIDELITY · BRAND SYSTEM',
+    link:'https://seri.et/', label:'OPEN WEBSITE ↗'
+  }
+};
+const caseTabs = [...document.querySelectorAll('.case-study-tab')];
+function renderCaseStudy(key) {
+  const item = caseStudies[key];
+  if (!item) return;
+  caseTabs.forEach(tab => {
+    const active = tab.dataset.case === key;
+    tab.classList.toggle('is-active', active);
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+  });
+  const panel = document.getElementById('case-panel');
+  panel.setAttribute('aria-labelledby', 'case-tab-' + key);
+  ['category','number','title','summary','problem','build','focus','next','stack'].forEach(field => {
+    const node = document.getElementById('case-' + field);
+    if (node) node.textContent = item[field];
+  });
+  const link = document.getElementById('case-link');
+  link.href = item.link;
+  link.textContent = item.label;
+  panel.classList.remove('case-study-content');
+  void panel.offsetWidth;
+  panel.classList.add('case-study-content');
+}
+caseTabs.forEach((tab,index) => {
+  tab.addEventListener('click', () => renderCaseStudy(tab.dataset.case));
+  tab.addEventListener('keydown', event => {
+    if (!['ArrowRight','ArrowLeft','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? caseTabs.length - 1 :
+      (index + (event.key === 'ArrowRight' ? 1 : -1) + caseTabs.length) % caseTabs.length;
+    caseTabs[next].focus();
+    renderCaseStudy(caseTabs[next].dataset.case);
+  });
+});
+renderCaseStudy('animo');
+
 const progressBar = document.getElementById('reading-progress-bar');
 const header = document.querySelector('.site-header');
 const topButton = document.querySelector('.back-to-top');
