@@ -517,3 +517,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{
   #nsi-volume{width:42px}.nsi-player-hint{font-size:7px}
 }
 @media(prefers-reduced-motion:reduce){.nsi-play:hover{transform:none}}
+
+
+/* Repeat control state */
+.nsi-repeat{font-size:18px;font-weight:800;line-height:1}
+.nsi-repeat.is-active{background:#eaff00;color:#070a13;border-color:#eaff00;box-shadow:2px 2px 0 #ff3158}
