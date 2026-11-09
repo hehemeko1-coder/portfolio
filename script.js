@@ -260,3 +260,100 @@ if ('IntersectionObserver' in window) {
 
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
+
+
+// NSI MUSIC PLAYER
+(() => {
+  const audio = document.getElementById('nsi-audio');
+  const select = document.getElementById('nsi-track-select');
+  const playButton = document.getElementById('nsi-play');
+  const prevButton = document.getElementById('nsi-prev');
+  const nextButton = document.getElementById('nsi-next');
+  const title = document.getElementById('nsi-track-title');
+  const progress = document.getElementById('nsi-progress');
+  const currentTime = document.getElementById('nsi-current-time');
+  const duration = document.getElementById('nsi-duration');
+  const volume = document.getElementById('nsi-volume');
+  const hint = document.getElementById('nsi-player-hint');
+  if (!audio || !select || !playButton) return;
+
+  const tracks = [
+    { title: 'Different Heaven - My Heart', src: 'assets/Different Heaven & EH!DE  – My Heart NCS Release].mp3' },
+    { title: 'FEAR - NSI', src: 'assets/FEAR.mp3' },
+    { title: 'SILENT - NSI', src: 'assets/SILENT(1).mp3' },
+    { title: 'lame - NSI', src: 'assets/lame .mp3' },
+    { title: 'loop - NSI', src: 'assets/loop.mp3' },
+    { title: 'stop - NSI', src: 'assets/stop.mp3' },
+    { title: 'yallD - NSI', src: 'assets/yallD.mp3' }
+  ];
+  const savedTrack = Number.parseInt(localStorage.getItem('nsi-player-track') || '0', 10);
+  let activeTrack = Number.isInteger(savedTrack) && savedTrack >= 0 && savedTrack < tracks.length ? savedTrack : 0;
+  const savedVolume = Number.parseFloat(localStorage.getItem('nsi-player-volume') || '0.7');
+  audio.volume = Number.isFinite(savedVolume) ? Math.min(1, Math.max(0, savedVolume)) : 0.7;
+  volume.value = String(audio.volume);
+
+  const formatTime = seconds => {
+    if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return mins + ':' + secs;
+  };
+  function setTrack(index, shouldPlay = false) {
+    activeTrack = (index + tracks.length) % tracks.length;
+    const track = tracks[activeTrack];
+    audio.pause();
+    audio.src = track.src;
+    audio.load();
+    select.value = String(activeTrack);
+    title.textContent = track.title;
+    currentTime.textContent = '0:00';
+    duration.textContent = '0:00';
+    progress.value = '0';
+    playButton.textContent = '▶';
+    playButton.setAttribute('aria-label', 'Play');
+    hint.textContent = 'SELECTED: ' + track.title.toUpperCase() + ' · PRESS PLAY';
+    localStorage.setItem('nsi-player-track', String(activeTrack));
+    if (shouldPlay) startPlayback();
+  }
+  async function startPlayback() {
+    try {
+      await audio.play();
+      playButton.textContent = 'Ⅱ';
+      playButton.setAttribute('aria-label', 'Pause');
+      hint.textContent = 'NOW PLAYING · ' + tracks[activeTrack].title.toUpperCase();
+    } catch (error) {
+      playButton.textContent = '▶';
+      playButton.setAttribute('aria-label', 'Play');
+      hint.textContent = 'PLAYBACK UNAVAILABLE · PRESS PLAY TO RETRY';
+    }
+  }
+  function updatePlayState() {
+    const playing = !audio.paused;
+    playButton.textContent = playing ? 'Ⅱ' : '▶';
+    playButton.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  select.addEventListener('change', () => setTrack(Number(select.value), !audio.paused));
+  playButton.addEventListener('click', () => audio.paused ? startPlayback() : audio.pause());
+  prevButton.addEventListener('click', () => setTrack(activeTrack - 1, true));
+  nextButton.addEventListener('click', () => setTrack(activeTrack + 1, true));
+  audio.addEventListener('play', updatePlayState);
+  audio.addEventListener('pause', updatePlayState);
+  audio.addEventListener('loadedmetadata', () => { duration.textContent = formatTime(audio.duration); });
+  audio.addEventListener('timeupdate', () => {
+    currentTime.textContent = formatTime(audio.currentTime);
+    if (Number.isFinite(audio.duration) && audio.duration > 0) progress.value = String(Math.round(audio.currentTime / audio.duration * 1000));
+  });
+  progress.addEventListener('input', () => {
+    if (Number.isFinite(audio.duration) && audio.duration > 0) audio.currentTime = Number(progress.value) / 1000 * audio.duration;
+  });
+  volume.addEventListener('input', () => {
+    audio.volume = Number(volume.value);
+    localStorage.setItem('nsi-player-volume', String(audio.volume));
+  });
+  audio.addEventListener('ended', () => setTrack(activeTrack + 1, true));
+  audio.addEventListener('error', () => {
+    hint.textContent = 'TRACK COULD NOT LOAD · CHECK THE AUDIO FILE';
+  });
+  setTrack(activeTrack, false);
+})();
