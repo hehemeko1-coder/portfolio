@@ -494,7 +494,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{
 .nsi-player-mark{font-size:11px;font-weight:900;letter-spacing:.16em;color:#eaff00;white-space:nowrap}
 .nsi-player-mark span{color:#9eabc9;font-weight:700}
 .nsi-track-select-wrap{min-width:0;max-width:72%}
-#nsi-track-select{width:100%;min-width:0;background:#111a31;color:#fff;border:1px solid #53648e;padding:7px 28px 7px 9px;font:700 11px inherit;letter-spacing:.02em}
+#nsi-track-select{width:100%;min-width:0;background:#111a31;color:#fff;border:1px solid #53648e;padding:7px 28px 7px 9px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.02em}
 .nsi-player-main{display:flex;align-items:center;gap:13px}
 .nsi-player-controls{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .nsi-control,.nsi-play{display:grid;place-items:center;border:1px solid #53648e;background:#101a31;color:#f5f5f0;cursor:pointer}
