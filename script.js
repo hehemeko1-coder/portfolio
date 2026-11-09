@@ -68,9 +68,19 @@ const disciplines = {
 
 const tabs = [...document.querySelectorAll('.discipline-tab')];
 const roleGrid = document.getElementById('discipline-role-grid');
-function renderDiscipline(key) {
+const searchInput = document.getElementById('discipline-search');
+const detailTitle = document.getElementById('discipline-detail-title');
+const detailDescription = document.getElementById('discipline-detail-description');
+const detailIndex = document.getElementById('discipline-detail-index');
+const resultsLabel = document.getElementById('discipline-results');
+let activeDiscipline = 'experience';
+let activeRole = 0;
+let searchTerm = '';
+function renderDiscipline(key, resetSearch = true) {
   const item = disciplines[key];
   if (!item || !roleGrid) return;
+  activeDiscipline = key;
+  if (resetSearch && searchInput) { searchInput.value = ''; searchTerm = ''; }
   tabs.forEach(tab => {
     const active = tab.dataset.discipline === key;
     tab.classList.toggle('is-active', active);
@@ -78,13 +88,36 @@ function renderDiscipline(key) {
     tab.tabIndex = active ? 0 : -1;
   });
   document.getElementById('discipline-overline').textContent = item.eyebrow;
-  document.getElementById('discipline-count').textContent = String(item.roles.length).padStart(2, '0') + ' ROLES';
+  document.getElementById('discipline-count').textContent = String(item.roles.length).padStart(2, '0') + ' / 22';
   document.getElementById('discipline-title').textContent = item.title;
   document.getElementById('discipline-description').textContent = item.description;
-  roleGrid.innerHTML = item.roles.map((role, index) =>
-    '<div class="discipline-role"><span>' + String(index + 1).padStart(2, '0') + '</span><b>' +
-    role[0] + '</b><small>' + role[1] + '</small></div>'
-  ).join('');
+  activeRole = 0;
+  renderDisciplineRoles();
+}
+function renderDisciplineRoles() {
+  const item = disciplines[activeDiscipline];
+  if (!item || !roleGrid) return;
+  const matches = item.roles.map((role, index) => ({ role, index })).filter(({ role }) =>
+    (role[0] + ' ' + role[1]).toLowerCase().includes(searchTerm)
+  );
+  roleGrid.innerHTML = matches.length ? matches.map(({ role, index }, visibleIndex) =>
+    '<button class="discipline-role' + (index === activeRole ? ' is-selected' : '') + '" type="button" aria-pressed="' + (index === activeRole) + '" data-role-index="' + index + '" style="animation-delay:' + (visibleIndex * 45) + 'ms">' +
+    '<span class="discipline-role-number">' + String(index + 1).padStart(2, '0') + '</span>' +
+    '<span class="discipline-role-copy"><b>' + role[0] + '</b><small>' + role[1] + '</small></span><span class="discipline-role-arrow">↗</span></button>'
+  ).join('') : '<div class="discipline-empty">No matching role in this field. Try another search.</div>';
+  roleGrid.querySelectorAll('.discipline-role').forEach(button => {
+    button.addEventListener('click', () => {
+      activeRole = Number(button.dataset.roleIndex);
+      renderDisciplineRoles();
+    });
+  });
+  const selected = item.roles[activeRole] || item.roles[0];
+  if (selected && detailTitle) {
+    detailTitle.textContent = selected[0];
+    detailDescription.textContent = selected[1];
+    detailIndex.textContent = String(activeRole + 1).padStart(2, '0') + ' / ' + String(item.roles.length).padStart(2, '0');
+  }
+  if (resultsLabel) resultsLabel.textContent = 'SHOWING ' + String(matches.length).padStart(2, '0') + ' OF 22';
 }
 tabs.forEach((tab, index) => {
   tab.addEventListener('click', () => renderDiscipline(tab.dataset.discipline));
@@ -97,6 +130,18 @@ tabs.forEach((tab, index) => {
     renderDiscipline(tabs[next].dataset.discipline);
   });
 });
+searchInput?.addEventListener('input', () => {
+  searchTerm = searchInput.value.trim().toLowerCase();
+  activeRole = -1;
+  renderDisciplineRoles();
+});
+document.addEventListener('keydown', event => {
+  if (event.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) {
+    event.preventDefault();
+    searchInput?.focus();
+  }
+});
+renderDiscipline('experience');
 
 const progressBar = document.getElementById('reading-progress-bar');
 const header = document.querySelector('.site-header');
