@@ -1563,3 +1563,215 @@ a { text-underline-offset: 4px; }
 @media(max-width:800px) { .hero { background-attachment:scroll; } .hero-copy::after { right:-18%; top:-20%; opacity:.55; } .discipline-panel,.case-study-content,.contact-card { transform:none; } }
 @media(max-width:600px) { .hero-copy::after { width:210px; right:-5%; top:-12%; opacity:.35; } .hero::after { transform:perspective(700px) rotateX(58deg) scale(1.5) translateY(20%); } }
 @media(prefers-reduced-motion:reduce) { .project-card,.design-card,.skill-card,.contact-card,.discipline-role,.button,.round-link,.nav-contact { transition:none!important; } }
+
+
+/* CREATIVE DIRECTION 04 — full-site immersive 3D experience */
+:root {
+  --pointer-x: 50vw;
+  --pointer-y: 35vh;
+  --glass-line: rgba(132,207,212,.2);
+  --glass-fill: rgba(12,39,58,.72);
+  --lift-shadow: 0 28px 70px rgba(0,0,0,.32);
+}
+html { scroll-behavior:smooth; }
+body {
+  overflow-x:hidden;
+  background:
+    radial-gradient(650px circle at var(--pointer-x) var(--pointer-y),rgba(22,140,150,.105),transparent 65%),
+    radial-gradient(ellipse at 88% 42%,rgba(22,140,150,.07),transparent 34%),
+    #081c2c;
+  perspective:1800px;
+}
+body::before {
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:0;
+  opacity:.16;
+  pointer-events:none;
+  background-image:linear-gradient(rgba(135,201,208,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(135,201,208,.055) 1px,transparent 1px);
+  background-size:70px 70px;
+  mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+main { position:relative; transform-style:preserve-3d; }
+.site-header {
+  transform:translateZ(30px);
+  box-shadow:0 14px 35px rgba(0,0,0,.18);
+}
+.site-header::after {
+  content:"";
+  position:absolute;
+  inset:auto 5% -1px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(85,191,194,.48),transparent);
+  pointer-events:none;
+}
+.section {
+  position:relative;
+  isolation:isolate;
+  transform-style:preserve-3d;
+}
+.section::before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:7% 2%;
+  border:1px solid rgba(132,207,212,.045);
+  border-radius:4px;
+  transform:translateZ(-28px) rotateX(.6deg);
+  pointer-events:none;
+}
+.about-section, .disciplines-section, .projects-section, .design-section, .skills-section, .services-section {
+  background-color:transparent;
+}
+.about-grid { perspective:1200px; }
+.about-copy {
+  position:relative;
+  transform:translateZ(18px);
+  text-shadow:0 5px 25px rgba(0,0,0,.12);
+}
+.personal-tags span {
+  background:linear-gradient(145deg,rgba(21,57,78,.85),rgba(8,28,44,.85));
+  border-color:rgba(132,207,212,.19);
+  box-shadow:inset 0 1px rgba(255,255,255,.035),0 7px 17px rgba(0,0,0,.12);
+  transition:transform .25s,border-color .25s;
+}
+.personal-tags span:hover { transform:translateY(-4px) translateZ(10px); border-color:var(--teal-400); }
+.section-heading { transform:translateZ(24px); }
+.discipline-explorer-premium, .discipline-explorer { perspective:1500px; }
+.discipline-control, .discipline-stage, .discipline-panel {
+  transform-style:preserve-3d;
+  box-shadow:0 28px 70px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.035);
+}
+.discipline-control { transform:rotateY(2deg) translateZ(10px); }
+.discipline-stage, .discipline-panel { transform:rotateY(-1.2deg) translateZ(18px); }
+.discipline-tab, .discipline-role {
+  transform-style:preserve-3d;
+  transition:transform .32s cubic-bezier(.2,.75,.25,1),background .25s,border-color .25s,box-shadow .25s;
+}
+.discipline-tab:hover { transform:translate3d(5px,-2px,12px); box-shadow:0 12px 22px rgba(0,0,0,.2); }
+.discipline-role:hover { transform:translate3d(7px,-3px,18px); }
+.project-grid, .design-grid-real, .skills-grid { perspective:1600px; }
+.project-card, .design-card, .skill-card, .contact-card {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border-color:rgba(132,207,212,.2);
+  background:linear-gradient(145deg,rgba(17,52,75,.96),rgba(7,27,43,.97));
+  box-shadow:0 18px 40px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.055);
+  transform-style:preserve-3d;
+  transition:transform .16s ease-out,box-shadow .3s,border-color .3s;
+}
+.project-card::after, .design-card::after, .skill-card::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(360px circle at var(--card-x,50%) var(--card-y,50%),rgba(125,224,224,.16),transparent 58%);
+  transition:opacity .25s;
+}
+.project-card:hover::after, .design-card:hover::after, .skill-card:hover::after { opacity:1; }
+.project-card:hover, .design-card:hover, .skill-card:hover {
+  border-color:rgba(85,191,194,.62);
+  box-shadow:0 35px 85px rgba(0,0,0,.36),0 0 35px rgba(22,140,150,.1),inset 0 1px rgba(255,255,255,.08);
+}
+.project-card > *, .design-card > *, .skill-card > * { transform:translateZ(22px); }
+.project-art, .design-image-link { transform:translateZ(32px); box-shadow:0 18px 34px rgba(0,0,0,.25); }
+.project-art img, .design-image { transition:transform .7s cubic-bezier(.2,.75,.25,1),filter .5s; }
+.project-card:hover .project-art img, .design-card:hover .design-image { transform:scale(1.055); filter:saturate(1.12) contrast(1.04); }
+.project-top, .project-info, .design-card-copy { position:relative; z-index:5; }
+.case-studies-wrap { perspective:1600px; }
+.case-study-shell {
+  transform-style:preserve-3d;
+  box-shadow:0 35px 90px rgba(0,0,0,.34);
+}
+.case-study-index { transform:translateZ(20px); }
+.case-study-content { transform:rotateY(-1deg) translateZ(28px); }
+.case-study-tab { transition:transform .25s,background .25s,border-color .25s; }
+.case-study-tab:hover { transform:translateX(5px) translateZ(12px); }
+.animo-window, .afterhours-panel, .mirai-chat-card, .portopedia-cards {
+  transform-style:preserve-3d;
+  box-shadow:0 24px 55px rgba(0,0,0,.32),inset 0 1px rgba(255,255,255,.06);
+}
+.animo-window { transform:rotateY(-5deg) rotateX(2deg) translateZ(30px); }
+.afterhours-panel { transform:rotateY(4deg) rotateX(2deg) translateZ(24px); }
+.mirai-chat-card { transform:rotateY(-3deg) translateZ(22px); }
+.portopedia-cards { transform:rotateX(3deg) rotateY(4deg) translateZ(20px); }
+.skill-card { min-height:100%; }
+.skill-icon { filter:drop-shadow(0 0 14px rgba(85,191,194,.35)); }
+.skill-level { box-shadow:inset 0 2px 5px rgba(0,0,0,.3); }
+.skill-level span { box-shadow:0 0 14px rgba(85,191,194,.35); }
+.service-list > div {
+  transform:translateZ(12px);
+  transition:transform .28s,border-color .28s,background .28s;
+}
+.service-list > div:hover { transform:translate3d(8px,-3px,18px); background:rgba(16,55,77,.5); border-color:rgba(85,191,194,.55); }
+.contact-card {
+  transform:perspective(1400px) rotateX(2deg) rotateY(-1deg) translateZ(24px);
+  box-shadow:0 42px 100px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.08);
+}
+.contact-card::before {
+  content:"";
+  position:absolute;
+  inset:1px;
+  border:1px solid rgba(162,225,223,.12);
+  pointer-events:none;
+}
+.button, .round-link, .nav-contact, .back-to-top {
+  position:relative;
+  transform-style:preserve-3d;
+  box-shadow:0 8px 0 rgba(2,14,23,.35),0 13px 24px rgba(0,0,0,.2);
+  transition:transform .22s cubic-bezier(.2,.75,.25,1),box-shadow .22s,filter .22s;
+}
+.button:hover, .round-link:hover, .nav-contact:hover, .back-to-top:hover {
+  transform:translate3d(0,-5px,12px);
+  box-shadow:0 12px 0 rgba(2,14,23,.2),0 22px 38px rgba(0,0,0,.3);
+  filter:brightness(1.08);
+}
+.button:active, .round-link:active, .nav-contact:active { transform:translate3d(0,2px,0); box-shadow:0 3px 0 rgba(2,14,23,.25); }
+.brand-logo { filter:drop-shadow(0 5px 12px rgba(85,191,194,.18)); }
+.back-to-top { backdrop-filter:blur(12px); }
+.site-footer { position:relative; box-shadow:0 -25px 65px rgba(0,0,0,.16); }
+.site-footer::before { content:""; position:absolute; inset:0 5% auto; height:1px; background:linear-gradient(90deg,transparent,rgba(85,191,194,.35),transparent); }
+
+/* Scroll entrance choreography */
+.js-enabled .reveal-3d {
+  opacity:0;
+  transform:perspective(1100px) translate3d(0,42px,-65px) rotateX(5deg);
+  transform-origin:center top;
+  transition:opacity .85s ease,transform .95s cubic-bezier(.2,.75,.25,1);
+  transition-delay:var(--reveal-delay,0ms);
+}
+.js-enabled .reveal-3d.is-visible {
+  opacity:1;
+  transform:perspective(1100px) translate3d(0,0,0) rotateX(0);
+}
+.js-enabled .reveal-3d.reveal-left { transform:perspective(1100px) translate3d(-45px,18px,-45px) rotateY(5deg); }
+.js-enabled .reveal-3d.reveal-left.is-visible { transform:perspective(1100px) translate3d(0,0,0) rotateY(0); }
+.js-enabled .reveal-3d.reveal-right { transform:perspective(1100px) translate3d(45px,18px,-45px) rotateY(-5deg); }
+.js-enabled .reveal-3d.reveal-right.is-visible { transform:perspective(1100px) translate3d(0,0,0) rotateY(0); }
+.js-enabled .reveal-3d.reveal-scale { transform:perspective(1100px) scale(.92) translateZ(-80px); }
+.js-enabled .reveal-3d.reveal-scale.is-visible { transform:perspective(1100px) scale(1) translateZ(0); }
+@media(max-width:900px) {
+  .animo-window,.afterhours-panel,.mirai-chat-card,.portopedia-cards { transform:none; }
+  .discipline-control,.discipline-stage,.discipline-panel,.case-study-content { transform:none; }
+}
+@media(max-width:800px) {
+  .site-header { transform:none; }
+  .section::before { inset:4% 0; }
+  .contact-card { transform:none; }
+  .js-enabled .reveal-3d, .js-enabled .reveal-3d.reveal-left, .js-enabled .reveal-3d.reveal-right, .js-enabled .reveal-3d.reveal-scale {
+    transform:translate3d(0,22px,0);
+  }
+  .js-enabled .reveal-3d.is-visible, .js-enabled .reveal-3d.reveal-left.is-visible, .js-enabled .reveal-3d.reveal-right.is-visible, .js-enabled .reveal-3d.reveal-scale.is-visible { transform:none; }
+}
+@media(max-width:600px) {
+  body::before { background-size:46px 46px; opacity:.1; }
+  .project-card > *, .design-card > *, .skill-card > * { transform:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+  .js-enabled .reveal-3d,.js-enabled .reveal-3d.reveal-left,.js-enabled .reveal-3d.reveal-right,.js-enabled .reveal-3d.reveal-scale { opacity:1; transform:none; }
+}
