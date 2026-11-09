@@ -269,6 +269,7 @@ if (year) year.textContent = new Date().getFullYear();
   const playButton = document.getElementById('nsi-play');
   const prevButton = document.getElementById('nsi-prev');
   const nextButton = document.getElementById('nsi-next');
+  const repeatButton = document.getElementById('nsi-repeat');
   const title = document.getElementById('nsi-track-title');
   const progress = document.getElementById('nsi-progress');
   const currentTime = document.getElementById('nsi-current-time');
@@ -276,6 +277,7 @@ if (year) year.textContent = new Date().getFullYear();
   const volume = document.getElementById('nsi-volume');
   const hint = document.getElementById('nsi-player-hint');
   if (!audio || !select || !playButton) return;
+  let repeatCurrent = localStorage.getItem('nsi-player-repeat') === 'true';
 
   const tracks = [
     { title: 'Different Heaven - My Heart', src: 'assets/Different Heaven & EH!DE  – My Heart NCS Release].mp3' },
@@ -291,6 +293,15 @@ if (year) year.textContent = new Date().getFullYear();
   const savedVolume = Number.parseFloat(localStorage.getItem('nsi-player-volume') || '0.7');
   audio.volume = Number.isFinite(savedVolume) ? Math.min(1, Math.max(0, savedVolume)) : 0.7;
   volume.value = String(audio.volume);
+  audio.loop = repeatCurrent;
+  function updateRepeatControl() {
+    if (!repeatButton) return;
+    repeatButton.classList.toggle('is-active', repeatCurrent);
+    repeatButton.setAttribute('aria-pressed', String(repeatCurrent));
+    repeatButton.setAttribute('aria-label', repeatCurrent ? 'Repeat current track on' : 'Repeat current track off');
+    repeatButton.title = repeatCurrent ? 'Repeat current track: on' : 'Repeat current track: off';
+  }
+  updateRepeatControl();
 
   const formatTime = seconds => {
     if (!Number.isFinite(seconds) || seconds < 0) return '0:00';
@@ -337,6 +348,13 @@ if (year) year.textContent = new Date().getFullYear();
   playButton.addEventListener('click', () => audio.paused ? startPlayback() : audio.pause());
   prevButton.addEventListener('click', () => setTrack(activeTrack - 1, true));
   nextButton.addEventListener('click', () => setTrack(activeTrack + 1, true));
+  repeatButton?.addEventListener('click', () => {
+    repeatCurrent = !repeatCurrent;
+    audio.loop = repeatCurrent;
+    localStorage.setItem('nsi-player-repeat', String(repeatCurrent));
+    updateRepeatControl();
+    hint.textContent = repeatCurrent ? 'REPEAT CURRENT TRACK · ON' : 'REPEAT CURRENT TRACK · OFF';
+  });
   audio.addEventListener('play', updatePlayState);
   audio.addEventListener('pause', updatePlayState);
   audio.addEventListener('loadedmetadata', () => { duration.textContent = formatTime(audio.duration); });
@@ -351,7 +369,7 @@ if (year) year.textContent = new Date().getFullYear();
     audio.volume = Number(volume.value);
     localStorage.setItem('nsi-player-volume', String(audio.volume));
   });
-  audio.addEventListener('ended', () => setTrack(activeTrack + 1, true));
+  audio.addEventListener('ended', () => { if (!repeatCurrent) setTrack(activeTrack + 1, true); });
   audio.addEventListener('error', () => {
     hint.textContent = 'TRACK COULD NOT LOAD · CHECK THE AUDIO FILE';
   });
