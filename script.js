@@ -267,3 +267,38 @@ if ('IntersectionObserver' in window) {
 
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
+
+
+// Pointer-driven 3D tilt: restrained depth on desktop, no effect on touch or reduced-motion devices.
+(() => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (reduceMotion || !finePointer) return;
+  const targets = document.querySelectorAll('.project-card, .design-card, .skill-card, .contact-card');
+  targets.forEach(card => {
+    card.addEventListener('pointermove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      const rotateY = (x - .5) * 8;
+      const rotateX = (.5 - y) * 7;
+      card.style.transform = 'perspective(1100px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-3px)';
+      card.style.boxShadow = '0 32px 65px rgba(0,0,0,.24), 0 0 0 1px rgba(85,191,194,.18)';
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+    });
+  });
+  const hero = document.querySelector('.hero');
+  const heroCopy = document.querySelector('.hero-copy');
+  if (hero && heroCopy) {
+    hero.addEventListener('pointermove', event => {
+      const rect = hero.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      heroCopy.style.transform = 'translate3d(' + (x * 10).toFixed(1) + 'px,' + (y * 8).toFixed(1) + 'px,65px)';
+    });
+    hero.addEventListener('pointerleave', () => { heroCopy.style.transform = ''; });
+  }
+})();
