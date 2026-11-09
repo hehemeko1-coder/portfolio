@@ -1775,3 +1775,64 @@ main { position:relative; transform-style:preserve-3d; }
   *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
   .js-enabled .reveal-3d,.js-enabled .reveal-3d.reveal-left,.js-enabled .reveal-3d.reveal-right,.js-enabled .reveal-3d.reveal-scale { opacity:1; transform:none; }
 }
+
+
+/* PERFORMANCE PASS — preserve the visual direction with cheaper compositing */
+.hero { background-attachment:scroll !important; }
+body {
+  perspective:none !important;
+  background:
+    radial-gradient(ellipse at 88% 42%,rgba(22,140,150,.055),transparent 34%),
+    #081c2c !important;
+}
+body::before { opacity:.07; }
+.site-header { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+.project-card,.design-card,.skill-card,.contact-card {
+  will-change:auto !important;
+  backface-visibility:visible;
+  transform-style:flat !important;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.04) !important;
+}
+.project-card:hover,.design-card:hover,.skill-card:hover {
+  transform:translateY(-3px) !important;
+  box-shadow:0 16px 32px rgba(0,0,0,.22) !important;
+}
+.project-card::after,.design-card::after,.skill-card::after { display:none !important; }
+.project-card > *, .design-card > *, .skill-card > * { transform:none !important; }
+.project-art,.design-image-link { transform:none !important; box-shadow:none !important; }
+.project-art img,.design-image { transition:transform .25s ease !important; }
+.project-card:hover .project-art img,.design-card:hover .design-image { transform:scale(1.015); filter:none !important; }
+.discipline-panel,.case-study-content,.contact-card,.case-study-shell,
+.discipline-control,.discipline-stage { transform:none !important; }
+.discipline-panel,.case-study-shell,.case-study-content {
+  box-shadow:0 14px 32px rgba(0,0,0,.18) !important;
+}
+.animo-window,.afterhours-panel,.mirai-chat-card,.portopedia-cards {
+  transform:none !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.2) !important;
+}
+.button,.round-link,.nav-contact,.back-to-top {
+  box-shadow:0 4px 12px rgba(0,0,0,.16) !important;
+}
+.button:hover,.round-link:hover,.nav-contact:hover,.back-to-top:hover {
+  transform:translateY(-2px) !important;
+  box-shadow:0 7px 16px rgba(0,0,0,.2) !important;
+  filter:none !important;
+}
+.back-to-top { backdrop-filter:none !important; }
+.js-enabled .reveal-3d,
+.js-enabled .reveal-3d.reveal-left,
+.js-enabled .reveal-3d.reveal-right,
+.js-enabled .reveal-3d.reveal-scale {
+  opacity:1 !important;
+  transform:none !important;
+  transition:none !important;
+}
+@media (max-width:800px) {
+  body::before { display:none; }
+  .section::before { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .project-card,.design-card,.skill-card,.design-image { transition:none !important; }
+}
