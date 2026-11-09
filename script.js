@@ -277,12 +277,3 @@ if ('IntersectionObserver' in window) {
 
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
-
-// Lightweight interaction polish: keep the interface responsive without
-// continuous page-wide pointer tracking or per-card 3D calculations.
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.querySelectorAll('.project-card,.design-card,.skill-card').forEach(card => {
-    card.addEventListener('pointerenter', () => card.classList.add('is-hovered'), {passive:true});
-    card.addEventListener('pointerleave', () => card.classList.remove('is-hovered'), {passive:true});
-  });
-}
