@@ -241,23 +241,6 @@ window.addEventListener('resize', scheduleScrollUIUpdate, { passive: true });
 updateScrollUI();
 topButton?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-const revealTargets = document.querySelectorAll('.section-kicker, .section-heading, .about-grid, .project-card, .design-card, .skill-card, .contact-card, .discipline-explorer');
-if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
-  revealTargets.forEach((element, index) => {
-    element.classList.add('reveal-on-scroll');
-    element.style.transitionDelay = (index % 4) * 65 + 'ms';
-    observer.observe(element);
-  });
-}
-
 const navLinks = [...document.querySelectorAll('.nav a[href^="#"]')];
 const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
 if ('IntersectionObserver' in window) {
