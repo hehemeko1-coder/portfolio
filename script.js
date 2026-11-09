@@ -100,6 +100,7 @@ function renderDisciplineRoles() {
   const matches = item.roles.map((role, index) => ({ role, index })).filter(({ role }) =>
     (role[0] + ' ' + role[1]).toLowerCase().includes(searchTerm)
   );
+  if (activeRole < 0 && matches.length) activeRole = matches[0].index;
   roleGrid.innerHTML = matches.length ? matches.map(({ role, index }, visibleIndex) =>
     '<button class="discipline-role' + (index === activeRole ? ' is-selected' : '') + '" type="button" aria-pressed="' + (index === activeRole) + '" data-role-index="' + index + '" style="animation-delay:' + (visibleIndex * 45) + 'ms">' +
     '<span class="discipline-role-number">' + String(index + 1).padStart(2, '0') + '</span>' +
