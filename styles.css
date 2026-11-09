@@ -1836,3 +1836,30 @@ body::before { opacity:.07; }
 @media (prefers-reduced-motion:reduce) {
   .project-card,.design-card,.skill-card,.design-image { transition:none !important; }
 }
+
+
+/* FINAL PERFORMANCE TUNING — keep depth, reduce paint and scroll costs */
+body::before,
+.section::before { display:none !important; }
+.site-header { box-shadow:0 5px 16px rgba(0,0,0,.12) !important; }
+.project-card,.design-card,.skill-card,.contact-card {
+  content-visibility:auto;
+  contain-intrinsic-size:auto 430px;
+  box-shadow:0 7px 18px rgba(0,0,0,.13),inset 0 1px rgba(255,255,255,.035) !important;
+  transition:transform .18s ease,border-color .18s ease !important;
+}
+.project-card:hover,.design-card:hover,.skill-card:hover {
+  transform:translateY(-3px) !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.17) !important;
+}
+.project-card::after,.design-card::after,.skill-card::after { display:none !important; }
+.project-card:hover .project-art img,.design-card:hover .design-image {
+  transform:none !important;
+}
+.project-art img,.design-image { transition:none !important; }
+@media(max-width:800px) {
+  .project-card,.design-card,.skill-card,.contact-card { content-visibility:visible; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .project-card,.design-card,.skill-card,.contact-card { transition:none !important; }
+}
