@@ -1533,3 +1533,7 @@ a { text-underline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
   .project-card, .design-card, .skill-card, .design-image { transition: none !important; }
 }
+
+
+/* Keep the hero full-bleed while the content sections use the editorial grid */
+.hero.section-wrap { width: 100%; max-width: none; }
